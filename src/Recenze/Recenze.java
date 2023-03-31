@@ -1,8 +1,9 @@
 package Recenze;
 
 public abstract class Recenze {
-    private String jmenoDivaka;
-    private Integer hodnoceni;    private String komentar;
+    private final String jmenoDivaka;
+    private Integer hodnoceni;
+    private final String komentar;
 
     public Recenze(String jmenoDivaka, String komentar) {
         this.jmenoDivaka = jmenoDivaka;
@@ -14,6 +15,7 @@ public abstract class Recenze {
     public String getJmenoDivaka() {
         return jmenoDivaka;
     }
+
     public String getKomentar() {
         return komentar;
     }

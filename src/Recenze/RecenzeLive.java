@@ -1,7 +1,8 @@
 package Recenze;
 
 public class RecenzeLive extends Recenze {
-    private String hodnoceni;
+    private final String hodnoceni;
+
     public RecenzeLive(String jmenoDivaka, String komentar, String hodnoceni) {
         super(jmenoDivaka, komentar);
         this.hodnoceni = hodnoceni;
@@ -13,7 +14,7 @@ public class RecenzeLive extends Recenze {
 
     @Override
     public void printRecenze() {
-        System.out.println(String.format("Jmeno divaka: %s, Komentar: %s, Hodnoceni: %s\n",
-                getJmenoDivaka(), getKomentar(), getHodnoceni()));
+        System.out.printf("Jmeno divaka: %s, Komentar: %s, Hodnoceni: %s\n%n",
+                getJmenoDivaka(), getKomentar(), getHodnoceni());
     }
 }
