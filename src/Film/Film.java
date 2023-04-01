@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Film {
-    private final String name;
-    private final String director;
-    private final Integer rokVydani;
+    private String name;
+    private String director;
+    private Integer rokVydani;
     private final List<String> staff;
     private final List<Recenze> recenze;
 
@@ -24,12 +24,24 @@ public class Film {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDirector() {
         return director;
     }
 
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
     public Integer getRokVydani() {
         return rokVydani;
+    }
+
+    public void setRokVydani(Integer rokVydani) {
+        this.rokVydani = rokVydani;
     }
 
     public void printAllStaff() {
@@ -57,5 +69,9 @@ public class Film {
 
     public void addStaff(String name) {
         staff.add(name);
+    }
+
+    public void removeStaff(String name) {
+        staff.remove(name);
     }
 }

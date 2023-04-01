@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilmAnimated extends Film {
-    private final Integer minVek;
+    private Integer minVek;
     private final List<String> staff;
 
     public FilmAnimated(String name, String director, Integer rokVydani, Integer minVek) {
@@ -17,8 +17,16 @@ public class FilmAnimated extends Film {
         return minVek;
     }
 
+    public void setMinVek(Integer minVek) {
+        this.minVek = minVek;
+    }
+
     public void addStaff(String name) {
         staff.add(name);
+    }
+
+    public void removeStaff(String name) {
+        staff.remove(name);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Main {
             System.out.println("Zadej input - čísla TBD");
             input = sc.nextInt();
             switch (input) {
-                case 1 -> {
+                case 1 -> { //add
                     try {
                         Integer vyber, rokVydani, doporucenyVek;
                         String name, director, actor;
@@ -76,7 +76,7 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                case 2 -> {
+                case 2 -> { //delete
                     String name;
                     sc.nextLine();
                     try {
@@ -84,7 +84,7 @@ public class Main {
                         name = sc.nextLine();
 
                         if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()) {
-                            System.out.println("Databaze s hranýma a animovanýma filmy je prázdná.");
+                            System.out.println("Databaze s hranými a animovanými filmy je prázdná.");
                             break;
                         }
                         for (Film f : hraneFilmy) {
@@ -108,18 +108,209 @@ public class Main {
                             }
                         }
                     } catch (Exception e) {
-                        System.out.println("hh");
+                        System.out.println(e);
                     }
                 }
-                case 3 -> {
+                case 3 -> { //edit film
+                    String name, director, actor = "", vyberStaff;
+                    Integer rokVydani, vyber, minVek;
+                    boolean zamestanci = true;
+                    sc.nextLine();
+                    try {
+                        System.out.println("Jsi u editování filmů - zadej název filmu/animáku pro editnutí.");
+                        name = sc.nextLine();
+                        if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()) {
+                            System.out.println("Databaze s hranými a animovanými filmy je prázdná.");
+                            break;
+                        }
+                        for (Film f : hraneFilmy) {
+                            if (f.getName().equals(name)) {
+                                name = f.getName();
+                                director = f.getDirector();
+                                rokVydani = f.getRokVydani();
+
+                                System.out.println("Film jsem našel v databázi, co chceš upravit?");
+                                System.out.println("1 - název filmu, 2 - režiséra filmu, 3 - rok vydání, 4 - herce");
+                                vyber = sc.nextInt();
+                                switch (vyber) {
+                                    case 1 -> {
+                                        sc.nextLine();
+                                        System.out.printf("Jsi u změny jména. Staré jméno: -> %s <-. Zadej nové: ", name);
+                                        name = sc.nextLine();
+                                        f.setName(name);
+                                    }
+                                    case 2 -> {
+                                        sc.nextLine();
+                                        System.out.printf("Jsi u změny režiséra. Starý režisér: -> %s <-. Zadej nové: ", director);
+                                        director = sc.nextLine();
+                                        f.setDirector(director);
+                                    }
+                                    case 3 -> {
+                                        sc.nextLine();
+                                        System.out.printf("Jsi u změny roku vydání filmu. Starý rok vydání: -> %d <-. Zadej nové: ", rokVydani);
+                                        rokVydani = sc.nextInt();
+                                        f.setRokVydani(rokVydani);
+                                    }
+                                    case 4 -> {
+                                        sc.nextLine();
+                                        System.out.print("Jsi u změny herců. Staří ");
+                                        f.printAllStaff();
+                                        System.out.println("Zadej r pro odebrání herce, a pro přidání herce, s pro stop");
+                                        while (zamestanci) {
+                                            System.out.print("Zadej akci: ");
+                                            vyberStaff = sc.nextLine();
+                                            if (vyberStaff.equals("s")) {
+                                                System.out.println("Ukončil jsi edit herců.");
+                                                zamestanci = false;
+                                            } else if (vyberStaff.equals("r")) {
+                                                System.out.println("Jsi u odebrání herce, zadej jméno toho koho chceš odebrat a pak s - pro stop odebírání.");
+                                                while (true) {
+                                                    actor = sc.nextLine();
+                                                    if (actor.equals("s")) {
+                                                        break;
+                                                    } else {
+                                                        try {
+                                                            f.removeStaff(actor);
+                                                        } catch (Exception e) {
+                                                            System.out.println("Nelze odebrat herce.");
+                                                        }
+                                                    }
+                                                }
+                                            } else if (vyberStaff.equals("a")) {
+                                                System.out.println("Jsi u přídání herců, zadej jméno toho koho chceš přídat a pak s - pro stop přidávání.");
+                                                while (true) {
+                                                    actor = sc.nextLine();
+                                                    if (actor.equals("s")) {
+                                                        break;
+                                                    } else {
+                                                        try {
+                                                            f.addStaff(actor);
+                                                        } catch (Exception e) {
+                                                            System.out.println("Nelze přidat herce.");
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                System.out.println("takový film nemám v databázi.");
+                                break;
+                            }
+                        }
+                        for (FilmAnimated f : animovaneFilmy) {
+                            if (f.getName().equals(name)) {
+                                name = f.getName();
+                                director = f.getDirector();
+                                rokVydani = f.getRokVydani();
+                                minVek = f.getMinVek();
+
+                                System.out.println("Film jsem našel v databázi, co chceš upravit?");
+                                System.out.println("1 - název filmu, 2 - režiséra filmu, 3 - rok vydání, 4 - doporučený věk, 5 - herce");
+                                vyber = sc.nextInt();
+                                switch (vyber) {
+                                    case 1 -> {
+                                        sc.nextLine();
+                                        System.out.printf("Jsi u změny jména. Staré jméno: -> %s <-. Zadej nové: ", name);
+                                        name = sc.nextLine();
+                                        f.setName(name);
+                                    }
+                                    case 2 -> {
+                                        sc.nextLine();
+                                        System.out.printf("Jsi u změny režiséra. Starý režisér: -> %s <-. Zadej nové: ", director);
+                                        director = sc.nextLine();
+                                        f.setDirector(director);
+                                    }
+                                    case 3 -> {
+                                        sc.nextLine();
+                                        System.out.printf("Jsi u změny roku vydání filmu. Starý rok vydání: -> %d <-. Zadej nové: ", rokVydani);
+                                        rokVydani = sc.nextInt();
+                                        f.setRokVydani(rokVydani);
+                                    }
+                                    case 4 -> {
+                                        sc.nextLine();
+                                        System.out.printf("Jsi u změny doporučeného věku filmu. Starý rok doporučení: -> %d <-. Zadej nové: ", minVek);
+                                        minVek = sc.nextInt();
+                                        f.setMinVek(minVek);
+                                    }
+                                    case 5 -> {
+                                        sc.nextLine();
+                                        System.out.print("Jsi u změny animátorů. Staří ");
+                                        f.printAllStaff();
+                                        System.out.println("Zadej r pro odebrání animátora, a pro přidání animátora, s pro stop");
+                                        while (zamestanci) {
+                                            System.out.print("Zadej akci: ");
+                                            vyberStaff = sc.nextLine();
+                                            if (vyberStaff.equals("s")) {
+                                                System.out.println("Ukončil jsi edit animátorů.");
+                                                zamestanci = false;
+                                            } else if (vyberStaff.equals("r")) {
+                                                System.out.println("Jsi u odebrání animátora, zadej jméno toho koho chceš odebrat a pak s - pro stop odebírání.");
+                                                while (true) {
+                                                    actor = sc.nextLine();
+                                                    if (actor.equals("s")) {
+                                                        break;
+                                                    } else {
+                                                        try {
+                                                            f.removeStaff(actor);
+                                                        } catch (Exception e) {
+                                                            System.out.println("Nelze odebrat animátora.");
+                                                        }
+                                                    }
+                                                }
+                                            } else if (vyberStaff.equals("a")) {
+                                                System.out.println("Jsi u přídání animátorů, zadej jméno toho koho chceš přídat a pak s - pro stop přidávání.");
+                                                while (true) {
+                                                    actor = sc.nextLine();
+                                                    if (actor.equals("s")) {
+                                                        break;
+                                                    } else {
+                                                        try {
+                                                            f.addStaff(actor);
+                                                        } catch (Exception e) {
+                                                            System.out.println("Nelze přidat animátora.");
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                break;
+                            } else {
+                                System.out.println("Takový film v databázi nemám.");
+                                break;
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+                case 4 -> { //vypis filmů
+
+                }
+                case 5 -> { //vyhledani filmu
+
+                }
+                case 6 -> { //vypis herců ve více filmech
+
+                }
+                case 7 -> { //vypis filmů na kterých se herec podílel
+
+                }
+
+                case 10 -> {
                     if (hraneFilmy.isEmpty()) {
                         System.out.println("helllo");
                     }
-                    for (FilmAnimated f : animovaneFilmy) {
-                        System.out.println("Film.Film: " + f.getName());
+                    for (Film f : hraneFilmy) {
+                        System.out.println("Film: " + f.getName());
                         System.out.println("Director: " + f.getDirector());
                         System.out.println("Rok vydaní: " + f.getRokVydani());
-                        System.out.println("Doporučený věk: " + f.getMinVek());
+                        //System.out.println("Doporučený věk: " + f.getMinVek());
                         f.printAllStaff();
                         f.printAllRecenze();
                     }
