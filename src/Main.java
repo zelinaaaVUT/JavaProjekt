@@ -159,34 +159,38 @@ public class Main {
                                         while (zamestanci) {
                                             System.out.print("Zadej akci: ");
                                             vyberStaff = sc.nextLine();
-                                            if (vyberStaff.equals("s")) {
-                                                System.out.println("Ukončil jsi edit herců.");
-                                                zamestanci = false;
-                                            } else if (vyberStaff.equals("r")) {
-                                                System.out.println("Jsi u odebrání herce, zadej jméno toho koho chceš odebrat a pak s - pro stop odebírání.");
-                                                while (true) {
-                                                    actor = sc.nextLine();
-                                                    if (actor.equals("s")) {
-                                                        break;
-                                                    } else {
-                                                        try {
-                                                            f.removeStaff(actor);
-                                                        } catch (Exception e) {
-                                                            System.out.println("Nelze odebrat herce.");
+                                            switch (vyberStaff){
+                                                case "s" ->{
+                                                    System.out.println("Ukončil jsi edit herců.");
+                                                    zamestanci = false;
+                                                }
+                                                case "r" -> {
+                                                    System.out.println("Jsi u odebrání herce, zadej jméno toho koho chceš odebrat a pak s - pro stop odebírání.");
+                                                    while (true) {
+                                                        actor = sc.nextLine();
+                                                        if (actor.equals("s")) {
+                                                            break;
+                                                        } else {
+                                                            try {
+                                                                f.removeStaff(actor);
+                                                            } catch (Exception e) {
+                                                                System.out.println("Nelze odebrat herce.");
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            } else if (vyberStaff.equals("a")) {
-                                                System.out.println("Jsi u přídání herců, zadej jméno toho koho chceš přídat a pak s - pro stop přidávání.");
-                                                while (true) {
-                                                    actor = sc.nextLine();
-                                                    if (actor.equals("s")) {
-                                                        break;
-                                                    } else {
-                                                        try {
-                                                            f.addStaff(actor);
-                                                        } catch (Exception e) {
-                                                            System.out.println("Nelze přidat herce.");
+                                                case "a" -> {
+                                                    System.out.println("Jsi u přídání herců, zadej jméno toho koho chceš přídat a pak s - pro stop přidávání.");
+                                                    while (true) {
+                                                        actor = sc.nextLine();
+                                                        if (actor.equals("s")) {
+                                                            break;
+                                                        } else {
+                                                            try {
+                                                                f.addStaff(actor);
+                                                            } catch (Exception e) {
+                                                                System.out.println("Nelze přidat herce.");
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -242,34 +246,38 @@ public class Main {
                                         while (zamestanci) {
                                             System.out.print("Zadej akci: ");
                                             vyberStaff = sc.nextLine();
-                                            if (vyberStaff.equals("s")) {
-                                                System.out.println("Ukončil jsi edit animátorů.");
-                                                zamestanci = false;
-                                            } else if (vyberStaff.equals("r")) {
-                                                System.out.println("Jsi u odebrání animátora, zadej jméno toho koho chceš odebrat a pak s - pro stop odebírání.");
-                                                while (true) {
-                                                    actor = sc.nextLine();
-                                                    if (actor.equals("s")) {
-                                                        break;
-                                                    } else {
-                                                        try {
-                                                            f.removeStaff(actor);
-                                                        } catch (Exception e) {
-                                                            System.out.println("Nelze odebrat animátora.");
+                                            switch (vyberStaff){
+                                                case "s" -> {
+                                                    System.out.println("Ukončil jsi edit animátorů.");
+                                                    zamestanci = false;
+                                                }
+                                                case "r" -> {
+                                                    System.out.println("Jsi u odebrání animátora, zadej jméno toho koho chceš odebrat a pak s - pro stop odebírání.");
+                                                    while (true) {
+                                                        actor = sc.nextLine();
+                                                        if (actor.equals("s")) {
+                                                            break;
+                                                        } else {
+                                                            try {
+                                                                f.removeStaff(actor);
+                                                            } catch (Exception e) {
+                                                                System.out.println("Nelze odebrat animátora.");
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            } else if (vyberStaff.equals("a")) {
-                                                System.out.println("Jsi u přídání animátorů, zadej jméno toho koho chceš přídat a pak s - pro stop přidávání.");
-                                                while (true) {
-                                                    actor = sc.nextLine();
-                                                    if (actor.equals("s")) {
-                                                        break;
-                                                    } else {
-                                                        try {
-                                                            f.addStaff(actor);
-                                                        } catch (Exception e) {
-                                                            System.out.println("Nelze přidat animátora.");
+                                                case "a" -> {
+                                                    System.out.println("Jsi u přídání animátorů, zadej jméno toho koho chceš přídat a pak s - pro stop přidávání.");
+                                                    while (true) {
+                                                        actor = sc.nextLine();
+                                                        if (actor.equals("s")) {
+                                                            break;
+                                                        } else {
+                                                            try {
+                                                                f.addStaff(actor);
+                                                            } catch (Exception e) {
+                                                                System.out.println("Nelze přidat animátora.");
+                                                            }
                                                         }
                                                     }
                                                 }
