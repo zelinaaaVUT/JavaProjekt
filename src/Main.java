@@ -16,7 +16,8 @@ public class Main {
             System.out.println("Zadej input - čísla TBD");
             input = sc.nextInt();
             switch (input) {
-                case 1 -> { //add
+                //add
+                case 1 -> {
                     try {
                         Integer vyber, rokVydani, doporucenyVek;
                         String name, director, actor;
@@ -76,7 +77,8 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                case 2 -> { //delete
+                //delete
+                case 2 -> {
                     String name;
                     sc.nextLine();
                     try {
@@ -111,7 +113,8 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                case 3 -> { //edit film
+                //edit
+                case 3 -> {
                     String name, director, actor = "", vyberStaff;
                     Integer rokVydani, vyber, minVek;
                     boolean zamestanci = true;
@@ -298,7 +301,32 @@ public class Main {
                     }
                 }
                 case 4 -> { //vypis filmů
-
+                    if (hraneFilmy.isEmpty()) {
+                        System.out.println("Databáze s hranými filmy je prázdná.");
+                        System.out.println("-----------------------------------------.");
+                    }
+                    for (Film f : hraneFilmy) {
+                        System.out.println("-----------------------------------------.");
+                        System.out.println("Film: " + f.getName());
+                        System.out.println("Director: " + f.getDirector());
+                        System.out.println("Rok vydaní: " + f.getRokVydani());
+                        //System.out.println("Doporučený věk: " + f.getMinVek());
+                        f.printAllStaff();
+                        System.out.println("-----------------------------------------.");
+                    }
+                    if (hraneFilmy.isEmpty()) {
+                        System.out.println("Databáze s animovanými filmy je prázdná.");
+                        System.out.println("-----------------------------------------.");
+                    }
+                    for (FilmAnimated f : animovaneFilmy) {
+                        System.out.println("-----------------------------------------.");
+                        System.out.println("Film: " + f.getName());
+                        System.out.println("Director: " + f.getDirector());
+                        System.out.println("Rok vydaní: " + f.getRokVydani());
+                        System.out.println("Doporučený věk: " + f.getMinVek());
+                        f.printAllStaff();
+                        System.out.println("-----------------------------------------.");
+                    }
                 }
                 case 5 -> { //vyhledani filmu
 

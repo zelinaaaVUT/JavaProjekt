@@ -9,9 +9,6 @@ public class RecenzeAnimated extends Recenze {
         this.hodnoceni = hodnoceni;
     }
 
-    /*public Integer getDoporucenyVek() {
-        return doporucenyVek;
-    }*/
     public Integer getHodnoceni() {
         return hodnoceni;
     }
