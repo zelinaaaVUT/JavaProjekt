@@ -14,7 +14,7 @@ public class RecenzeLive extends Recenze {
 
     @Override
     public void printRecenze() {
-        System.out.printf("Jmeno divaka: %s, Komentar: %s, Hodnoceni: %s\n%n",
+        System.out.printf("Jmeno divaka: %s, Komentar: %s, Hodnoceni: %s\n",
                 getJmenoDivaka(), getKomentar(), getHodnoceni());
     }
 }

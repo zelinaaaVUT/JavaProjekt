@@ -1,5 +1,7 @@
 import Film.Film;
 import Film.FilmAnimated;
+import Recenze.RecenzeAnimated;
+import Recenze.RecenzeLive;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -300,7 +302,8 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                case 4 -> { //vypis filmů
+                //vypis filmů
+                case 4 -> {
                     if (hraneFilmy.isEmpty()) {
                         System.out.println("Databáze s hranými filmy je prázdná.");
                         System.out.println("-----------------------------------------.");
@@ -314,7 +317,7 @@ public class Main {
                         f.printAllStaff();
                         System.out.println("-----------------------------------------.");
                     }
-                    if (hraneFilmy.isEmpty()) {
+                    if (animovaneFilmy.isEmpty()) {
                         System.out.println("Databáze s animovanými filmy je prázdná.");
                         System.out.println("-----------------------------------------.");
                     }
@@ -328,13 +331,76 @@ public class Main {
                         System.out.println("-----------------------------------------.");
                     }
                 }
-                case 5 -> { //vyhledani filmu
+                //pridani recenze
+                case 5 -> {
+                    String name, divak, komentar, hodnoceni;
+                    Integer found = 0;
+                    long counter;
+                    sc.nextLine();
+                    System.out.println("Zadej jméno filmu, kterému chceš přidat recenzi.");
+                    name = sc.nextLine();
+                    if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()){
+                        System.out.println("Databáze s filmy je prázdná.");
+                    }else {
+                        for (Film f : hraneFilmy){
+                            if (f.getName().equals(name)){
+                                found = 1;
+                            }
+                            if (found == 1){
+                                System.out.println("Našel jsem tvůj hraný film v databázi. Nyní můžeš přidat recenzi.");
+                                System.out.print("Zadej jméno recenzenta: ");
+                                divak = sc.nextLine();
+                                System.out.print("Zadej komentář(volitelne): ");
+                                komentar = sc.nextLine();
+                                System.out.print("Zadej hodnocení - * 1-5: ");
+                                hodnoceni = sc.nextLine();
+                                counter = hodnoceni.chars().filter(ch -> ch == '*').count();
+                                if (counter < 1 || counter > 5){
+                                    System.out.println("Špatně zadané hodnocení. Musíš zadat 1-5 *. Začni znovu.");
+                                    break;
+                                }else {
+                                    System.out.println("Recenze přidána.");
+                                    f.addRecenze(new RecenzeLive(divak, komentar, hodnoceni));
+                                }
+                            }else {
+                                System.out.println("Nenašel jsem tvůj hraný film v databázi.");
+                                break;
+                            }
+                        }
+                        for (FilmAnimated f : animovaneFilmy){
+                            if (f.getName().equals(name)){
+                                found = 1;
+                                if (found == 1){
+                                    System.out.println("Našel jsem tvůj animovaný film v databázi. Nyní můžeš přidat recenzi.");
+                                    System.out.print("Zadej jméno recenzenta: ");
+                                    divak = sc.nextLine();
+                                    System.out.print("Zadej komentář(volitelne): ");
+                                    komentar = sc.nextLine();
+                                    System.out.print("Zadej hodnocení - 1-10: ");
+                                    hodnoceni = sc.nextLine();
+                                    if (Integer.parseInt(hodnoceni) < 1 || Integer.parseInt(hodnoceni) > 10){
+                                        System.out.println("Špatně zadané hodnocení. Musíš zadat 1-10. Začni znovu.");
+                                        break;
+                                    }else {
+                                        System.out.println("Recenze přidána.");
+                                        f.addRecenze(new RecenzeAnimated(divak, komentar, Integer.parseInt(hodnoceni)));
+                                    }
+                                }else {
+                                    System.out.println("Nenašel jsem tvůj hraný film v databázi.");
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
                 }
-                case 6 -> { //vypis herců ve více filmech
+                case 6 -> { //vyhledani filmu
 
                 }
-                case 7 -> { //vypis filmů na kterých se herec podílel
+                case 7 -> { //vypis herců ve více filmech
+
+                }
+                case 8 -> { //vypis filmů na kterých se herec podílel
 
                 }
 
