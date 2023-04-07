@@ -1,17 +1,16 @@
 package Recenze;
 
 public class RecenzeAnimated extends Recenze {
-    private Integer doporucenyVek;
-    private final Integer hodnoceni;
+    //private final Integer hodnoceni;
 
-    public RecenzeAnimated(String jmenoDivaka, String komentar, Integer hodnoceni) {
-        super(jmenoDivaka, komentar);
-        this.hodnoceni = hodnoceni;
+    public RecenzeAnimated(String jmenoDivaka, String komentar, String hodnoceni) {
+        super(jmenoDivaka, komentar, hodnoceni);
+        //this.hodnoceni = hodnoceni;
     }
 
-    public Integer getHodnoceni() {
+    /*public Integer getHodnoceni() {
         return hodnoceni;
-    }
+    }*/
 
     @Override
     public void printRecenze() {

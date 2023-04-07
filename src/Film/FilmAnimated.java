@@ -21,6 +21,11 @@ public class FilmAnimated extends Film {
         this.minVek = minVek;
     }
 
+    public List<String> getStaff() {
+        return staff;
+    }
+
+
     public void addStaff(String name) {
         staff.add(name);
     }

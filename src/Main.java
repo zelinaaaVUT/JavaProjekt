@@ -3,9 +3,8 @@ import Film.FilmAnimated;
 import Recenze.RecenzeAnimated;
 import Recenze.RecenzeLive;
 
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.plaf.synth.SynthCheckBoxMenuItemUI;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -323,7 +322,7 @@ public class Main {
                     }
                     for (FilmAnimated f : animovaneFilmy) {
                         System.out.println("-----------------------------------------.");
-                        System.out.println("Film: " + f.getName());
+                        System.out.println("Animovany film: " + f.getName());
                         System.out.println("Director: " + f.getDirector());
                         System.out.println("Rok vydaní: " + f.getRokVydani());
                         System.out.println("Doporučený věk: " + f.getMinVek());
@@ -383,7 +382,7 @@ public class Main {
                                         break;
                                     }else {
                                         System.out.println("Recenze přidána.");
-                                        f.addRecenze(new RecenzeAnimated(divak, komentar, Integer.parseInt(hodnoceni)));
+                                        f.addRecenze(new RecenzeAnimated(divak, komentar, hodnoceni));
                                     }
                                 }else {
                                     System.out.println("Nenašel jsem tvůj hraný film v databázi.");
@@ -394,14 +393,93 @@ public class Main {
                     }
 
                 }
-                case 6 -> { //vyhledani filmu
-
+                case 6 -> { //vyhledani filmu not working
+                    String name;
+                    sc.nextLine();
+                    System.out.println("Zadej návev filmu, který chceš vypsat.");
+                    name = sc.nextLine();
+                    for (Film f : hraneFilmy) {
+                        if (f.getName().equals(name)) {
+                            System.out.println("Takový film mám v databázi.");
+                            System.out.println("Hraný film: " + f.getName());
+                            System.out.println("Director: " + f.getDirector());
+                            System.out.println("Rok vydaní: " + f.getRokVydani());
+                            f.printAllStaff();
+                            f.sortHrane();
+                            f.printAllRecenze();
+                            break;
+                        } else {
+                            System.out.println("Takový film v databázi nemám.");
+                            break;
+                        }
+                    }
                 }
                 case 7 -> { //vypis herců ve více filmech
+                    Integer count = 0;
+                    String filmy = "";
+                    Map<String, Integer> test = new HashMap<>();
+                    Map<String, String> test2 = new HashMap<>();
+
+                    //získání počtu v kolikati filmech se herec vyskytuje
+                    for (Film f : hraneFilmy){
+                        List<String> staff = f.returnStaffName();
+                        for (String herec : staff){
+                            count = test.getOrDefault(herec, 0);
+                            test.put(herec, count + 1);
+                        }
+                    }
+                    Iterator<Map.Entry<String, Integer>> iterator = test.entrySet().iterator();
+                    while (iterator.hasNext()){
+                        Map.Entry<String, Integer> entry = iterator.next();
+                        if (entry.getValue() < 2){
+                            iterator.remove();
+                        }
+                    }
+                    for (Film f : hraneFilmy){
+                        List<String> staff = f.returnStaffName();
+                        for (String herec : staff){
+                            filmy = test2.getOrDefault(herec, "");
+                            if (test.containsKey(herec)){
+                                test2.put(herec, filmy + f.getName()+ ", ");
+                            }
+                        }
+                    }
+
+
+                    System.out.println(test);
+                    System.out.println(test2);
+
 
                 }
                 case 8 -> { //vypis filmů na kterých se herec podílel
+                    String name;
+                    Integer check = null;
+                    sc.nextLine();
+                    System.out.println("Zadej herce:");
+                    name = sc.nextLine();
 
+                    for (Film f : hraneFilmy){
+                        if (f.getStaff().contains(name)){
+                            System.out.println("Hraný film: " +f.getName());
+                        }else {
+                            check = 0;
+                        }
+                    }
+                    for (FilmAnimated f : animovaneFilmy){
+                        if (f.getStaff().contains(name)){
+                            System.out.println("Animák: " + f.getName());
+                        }else {
+                            check = 1;
+                        }
+                    }
+
+                    if (check == null){
+                        System.out.println("Nepodílel se na ničem.");
+                    } else if (check == 0){
+                        System.out.println("Nepodílel se na žádném hraném filmu.");
+                    }else if (check == 1){
+                        System.out.println("Nepodílel se na žádném animáku.");
+                    }
                 }
 
                 case 10 -> {
@@ -430,20 +508,15 @@ public class Main {
         }
         /*Film.Film film = new Film.Film("Nejaky film", "Kdo vi kdo", 2010);
         film.addRecenze(new RecenzeAnimated("Pavel Polak", "Jo dobry", 5, 13));
-
         film.addStaff("Petr");
         film.addStaff("Lucie");
         film.addStaff("Tomas");
-
         System.out.println("-------------");
-
         Film.Film film2 = new Film.Film("Matrix 2022", "No name", 2022);
         film2.addRecenze(new RecenzeLive("Petr Zelinka", "Fakt hnus", "***"));
         film.addStaff("No name... prostě");
-
         filmy.add(film);
         filmy.add(film2);
-
         for (Film.Film f : filmy)
         {
             System.out.println("Film.Film: " + f.getName());
@@ -451,9 +524,7 @@ public class Main {
             film.printAllStaff();
             f.printAllRecenze();
         }
-
         // Vypis filmu
-
         for (Film.Film f : filmy)
         {
             System.out.println("Film.Film: " + f.getName());
@@ -461,11 +532,8 @@ public class Main {
             film.printAllStaff();
             f.printAllRecenze();
         }
-
         // Vypis filmu
-
         String filterName = "Nejaky film";
-
         for (Film.Film f : filmy)
         {
             if (f.getName().equals(filterName))
@@ -476,11 +544,8 @@ public class Main {
                 f.printAllRecenze();
             }
         }
-
         // Úprava filmu:
-
         filterName = "Nejaky film";
-
         for (Film.Film f : filmy)
         {
             if (f.getName().equals(filterName))
@@ -488,11 +553,8 @@ public class Main {
                 // DO STUFF
             }
         }
-
         // Smazání filmu
-
         filterName = "Nejaky film";
-
         for (Film.Film f : filmy)
         {
             if (f.getName().equals(filterName))

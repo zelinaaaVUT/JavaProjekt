@@ -2,12 +2,13 @@ package Recenze;
 
 public abstract class Recenze {
     private final String jmenoDivaka;
-    private Integer hodnoceni;
     private final String komentar;
+    private final String hodnoceni;
 
-    public Recenze(String jmenoDivaka, String komentar) {
+    public Recenze(String jmenoDivaka, String komentar, String hodnoceni) {
         this.jmenoDivaka = jmenoDivaka;
         this.komentar = komentar;
+        this.hodnoceni = hodnoceni;
     }
 
     public abstract void printRecenze();
@@ -18,5 +19,8 @@ public abstract class Recenze {
 
     public String getKomentar() {
         return komentar;
+    }
+    public String getHodnoceni(){
+        return hodnoceni;
     }
 }

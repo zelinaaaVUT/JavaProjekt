@@ -3,6 +3,8 @@ package Film;
 import Recenze.Recenze;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Film {
@@ -19,6 +21,7 @@ public class Film {
         staff = new ArrayList<>();
         recenze = new ArrayList<>();
     }
+
 
     public String getName() {
         return name;
@@ -52,6 +55,10 @@ public class Film {
         });
     }
 
+    public void sortHrane(){
+
+    }
+
     public void addRecenze(Recenze novaRecenze) {
         recenze.add(novaRecenze);
     }
@@ -64,6 +71,10 @@ public class Film {
     }
 
     public List<String> getStaff() {
+        return staff;
+    }
+
+    public List<String> returnStaffName(){
         return staff;
     }
 
