@@ -31,7 +31,6 @@ public class NacteniZeSouboru {
             }
         }
 
-        //FileReader fr = null;
         hraneFilmySoubory.forEach((value)->{
             File vstupniSoubor = new File(dirHrane + "/" + value);
             try {
@@ -46,12 +45,45 @@ public class NacteniZeSouboru {
                     name = splited[0];
                     director = splited[1];
                     rokVydani = Integer.valueOf(splited[2]);
-                    String[] staffSplit = (splited[3].substring(1, splited[3].length() - 1)).split(", ");
+                    String[] staffSplit = (splited[3].substring(1, splited[3].length() - 1)).split(", "); //removes brackets, split by comma and put it in array
                     for (String s : staffSplit){
                         staffToBeAdded.add(s);
                     }
                     Film film = new Film(name, director, rokVydani);
                     hraneFilmy.add(film);
+                    for (String actor : staffToBeAdded){
+                        film.addStaff(actor);
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            catch (IOException e){
+                System.out.println(e);
+            }
+        });
+
+        animovaneFilmySoubory.forEach((value)->{
+            File vstupniSoubor = new File(dirAnimovane + "/" + value);
+            try {
+                String name, director, staff;
+                Integer rokVydani, doporucenyVek;
+                List<String> staffToBeAdded = new ArrayList<>();
+                FileReader fr = new FileReader(vstupniSoubor);
+                BufferedReader in = new BufferedReader(fr);
+                String radek;
+                while((radek = in.readLine()) != null){
+                    String[] splited = radek.split(";");
+                    name = splited[0];
+                    director = splited[1];
+                    rokVydani = Integer.valueOf(splited[2]);
+                    doporucenyVek = Integer.valueOf(splited[3]);
+                    String[] staffSplit = (splited[4].substring(1, splited[4].length() - 1)).split(", "); //removes brackets, split by comma and put it in array
+                    for (String s : staffSplit){
+                        staffToBeAdded.add(s);
+                    }
+                    FilmAnimated film = new FilmAnimated(name, director, rokVydani, doporucenyVek);
+                    animovaneFilmy.add(film);
                     for (String actor : staffToBeAdded){
                         film.addStaff(actor);
                     }
