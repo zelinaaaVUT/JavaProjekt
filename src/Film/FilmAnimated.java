@@ -24,6 +24,9 @@ public class FilmAnimated extends Film {
     public List<String> getStaff() {
         return staff;
     }
+    public List<String> returnStaffName(){
+        return staff;
+    }
 
 
     public void addStaff(String name) {

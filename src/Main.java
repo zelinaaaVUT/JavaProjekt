@@ -2,6 +2,7 @@ import Film.Film;
 import Film.FilmAnimated;
 import Recenze.RecenzeAnimated;
 import Recenze.RecenzeLive;
+import Metody.UlozeniDoSouboru;
 
 import javax.swing.plaf.synth.SynthCheckBoxMenuItemUI;
 import java.util.*;
@@ -13,6 +14,7 @@ public class Main {
         List<Film> hraneFilmy = new ArrayList<>();
         List<FilmAnimated> animovaneFilmy = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
+
         do {
             System.out.println("Zadej input - čísla TBD");
             input = sc.nextInt();
@@ -444,41 +446,67 @@ public class Main {
                             }
                         }
                     }
-
-
-                    System.out.println(test);
-                    System.out.println(test2);
-
-
+                    if (test2.isEmpty()){
+                        System.out.println("Žádný herec se nepodível na více než jednom filmu.");
+                    }else {
+                        test2.forEach((key, value)->{
+                            System.out.println(key + " {" + value + "}");
+                        });
+                    }
                 }
-                case 8 -> { //vypis filmů na kterých se herec podílel
+                case 8 -> { //vypis animátorů ve více filmech
+                    Integer count = 0;
+                    String filmy = "";
+                    Map<String, Integer> test = new HashMap<>();
+                    Map<String, String> test2 = new HashMap<>();
+
+                    //získání počtu v kolikati filmech se herec vyskytuje
+                    for (FilmAnimated f : animovaneFilmy){
+                        List<String> staff = f.returnStaffName();
+                        for (String herec : staff){
+                            count = test.getOrDefault(herec, 0);
+                            test.put(herec, count + 1);
+                        }
+                    }
+                    Iterator<Map.Entry<String, Integer>> iterator = test.entrySet().iterator();
+                    while (iterator.hasNext()){
+                        Map.Entry<String, Integer> entry = iterator.next();
+                        if (entry.getValue() < 2){
+                            iterator.remove();
+                        }
+                    }
+                    for (FilmAnimated f : animovaneFilmy){
+                        List<String> staff = f.returnStaffName();
+                        for (String herec : staff){
+                            filmy = test2.getOrDefault(herec, "");
+                            if (test.containsKey(herec)){
+                                test2.put(herec, filmy + f.getName()+ ", ");
+                            }
+                        }
+                    }
+                    if (test2.isEmpty()){
+                        System.out.println("Žádný animátor se nepodível na více než jednom filmu.");
+                    }else {
+                        test2.forEach((key, value)->{
+                            System.out.println(key + " {" + value + "}");
+                        });
+                    }
+                }
+                case 9 -> { //vypis filmů na kterých se herec podílel
                     String name;
-                    Integer check = null;
                     sc.nextLine();
-                    System.out.println("Zadej herce:");
+                    System.out.println("Zadej herce/animátora:");
                     name = sc.nextLine();
 
                     for (Film f : hraneFilmy){
                         if (f.getStaff().contains(name)){
                             System.out.println("Hraný film: " +f.getName());
-                        }else {
-                            check = 0;
                         }
                     }
                     for (FilmAnimated f : animovaneFilmy){
                         if (f.getStaff().contains(name)){
                             System.out.println("Animák: " + f.getName());
-                        }else {
-                            check = 1;
                         }
-                    }
-
-                    if (check == null){
-                        System.out.println("Nepodílel se na ničem.");
-                    } else if (check == 0){
-                        System.out.println("Nepodílel se na žádném hraném filmu.");
-                    }else if (check == 1){
-                        System.out.println("Nepodílel se na žádném animáku.");
                     }
                 }
 
@@ -494,6 +522,10 @@ public class Main {
                         f.printAllStaff();
                         f.printAllRecenze();
                     }
+                }
+                case 11 -> {
+                    UlozeniDoSouboru uds = new UlozeniDoSouboru();
+                    uds.Ulozeni(hraneFilmy, animovaneFilmy);
                 }
             }
         } while (run);
