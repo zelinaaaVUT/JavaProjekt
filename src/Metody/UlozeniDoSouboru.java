@@ -14,18 +14,32 @@ public class UlozeniDoSouboru {
     }
     public void Ulozeni(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy){
         String aktDir = System.getProperty("user.dir");
-        String dir = aktDir + File.separator + "src" + File.separator + "MovieFiles";
+        String dirHrane = aktDir + File.separator + "src" + File.separator + "MovieFiles/Hrane";
+        String dirAnimovane = aktDir + File.separator + "src" + File.separator + "MovieFiles/Animovane";
 
-        //String dir = "/home/zelinaaa/Documents/VUT/PC2T/JavaProjektGood/src/MovieFiles";
         String str;
 
         for (Film f : hraneFilmy){
             str = f.getName() + ".txt";
             try {
-                FileWriter fw = new FileWriter(new File(dir, str), true);
+                FileWriter fw = new FileWriter(new File(dirHrane, str), true);
                 fw.write(f.getName()+";");
                 fw.write(f.getDirector()+";");
                 fw.write(f.getRokVydani()+";");
+                fw.write(f.getStaff()+";");
+                fw.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        for (FilmAnimated f : animovaneFilmy){
+            str = f.getName() + ".txt";
+            try {
+                FileWriter fw = new FileWriter(new File(dirAnimovane, str), true);
+                fw.write(f.getName()+";");
+                fw.write(f.getDirector()+";");
+                fw.write(f.getRokVydani()+";");
+                fw.write(f.getMinVek()+";");
                 fw.write(f.getStaff()+";");
                 fw.close();
             } catch (IOException e) {

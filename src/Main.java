@@ -122,9 +122,15 @@ public class Main {
                         f.printAllRecenze();
                     }
                 }
+                //ulozeni do souboru
                 case 11 -> {
                     UlozeniDoSouboru uds = new UlozeniDoSouboru();
                     uds.Ulozeni(hraneFilmy, animovaneFilmy);
+                }
+                //nacteni ze souboru
+                case 12 -> {
+                    NacteniZeSouboru nacteniZeSouboru = new NacteniZeSouboru();
+                    nacteniZeSouboru.Nacteni(hraneFilmy, animovaneFilmy);
                 }
             }
         } while (run);
