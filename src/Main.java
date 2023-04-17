@@ -61,8 +61,8 @@ public class Main {
                 }
                 //pridani recenze
                 case 5 -> {
+                    sc.nextLine();
                     try {
-                        sc.nextLine();
                         System.out.println("Zadej jméno filmu, kterému chceš přidat recenzi.");
                         String name = sc.nextLine();
                         PridaniRecenze pridaniRecenze = new PridaniRecenze();
@@ -76,20 +76,11 @@ public class Main {
                     sc.nextLine();
                     System.out.println("Zadej návev filmu, který chceš vypsat.");
                     name = sc.nextLine();
-                    for (Film f : hraneFilmy) {
-                        if (f.getName().equals(name)) {
-                            System.out.println("Takový film mám v databázi.");
-                            System.out.println("Hraný film: " + f.getName());
-                            System.out.println("Director: " + f.getDirector());
-                            System.out.println("Rok vydaní: " + f.getRokVydani());
-                            f.printAllStaff();
-                            f.sortHrane();
-                            f.printAllRecenze();
-                            break;
-                        } else {
-                            System.out.println("Takový film v databázi nemám.");
-                            break;
-                        }
+                    try{
+                        VyhledaniFilmu vyhledaniFilmu = new VyhledaniFilmu();
+                        vyhledaniFilmu.vyhledani(hraneFilmy, animovaneFilmy, name);
+                    }catch (Exception e){
+                        System.out.println(e);
                     }
                 }
                 case 7 -> { //vypis herců ve více filmech

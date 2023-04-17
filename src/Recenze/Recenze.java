@@ -1,5 +1,7 @@
 package Recenze;
 
+import java.util.List;
+
 public abstract class Recenze {
     private final String jmenoDivaka;
     private final String komentar;
@@ -23,4 +25,5 @@ public abstract class Recenze {
     public String getHodnoceni(){
         return hodnoceni;
     }
+
 }

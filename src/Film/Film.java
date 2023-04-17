@@ -55,10 +55,6 @@ public class Film {
         });
     }
 
-    public void sortHrane(){
-
-    }
-
     public void addRecenze(Recenze novaRecenze) {
         recenze.add(novaRecenze);
     }
@@ -68,6 +64,10 @@ public class Film {
         {
             value.printRecenze();
         });
+    }
+
+    public List<Recenze> getRecenze() {
+        return recenze;
     }
 
     public List<String> getStaff() {
