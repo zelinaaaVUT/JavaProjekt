@@ -5,6 +5,13 @@ import Managers.FilmManager;
 import Managers.ReviewManager;
 import Managers.StaffManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import dbconn.DBConnection;
+import crud.InsertQueries;
+
 import java.util.*;
 
 public class Main {
@@ -109,6 +116,11 @@ public class Main {
                 //nacteni ze souboru
                 case 12 -> {
                     FileManager.Nacteni(hraneFilmy, animovaneFilmy);
+                }
+                case 13 ->{
+                    InsertQueries insertQueries = new InsertQueries();
+                    insertQueries.performInsertQuery("INSERT INTO FilmHrany " + "(nazev,reziser,rok_vydani)"
+                            + "VALUES('Avatar', 'James Cameron','2009')");
                 }
             }
         } while (run);
