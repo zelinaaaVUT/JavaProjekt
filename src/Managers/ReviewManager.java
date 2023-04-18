@@ -1,4 +1,4 @@
-package Handlers;
+package Managers;
 
 import Film.Film;
 import Film.FilmAnimated;
@@ -8,7 +8,7 @@ import Recenze.RecenzeLive;
 import java.util.List;
 import java.util.Scanner;
 
-public final class ReviewHandler {
+public final class ReviewManager {
     public static void Pridani(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name){
         Scanner sc = new Scanner(System.in);
         String divak, komentar, hodnoceni;

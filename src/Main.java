@@ -1,9 +1,9 @@
 import Film.Film;
 import Film.FilmAnimated;
-import Handlers.FileHandler;
-import Handlers.FilmHandler;
-import Handlers.ReviewHandler;
-import Handlers.StaffHandler;
+import Managers.FileManager;
+import Managers.FilmManager;
+import Managers.ReviewManager;
+import Managers.StaffManager;
 
 import java.util.*;
 
@@ -22,7 +22,7 @@ public class Main {
                 //add
                 case 1 -> {
                     try {
-                        FilmHandler.Pridani(hraneFilmy, animovaneFilmy);
+                        FilmManager.Pridani(hraneFilmy, animovaneFilmy);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
@@ -34,7 +34,7 @@ public class Main {
                     try {
                         System.out.println("Jsi u mazání filmů - zadej název filmu/animáku pro vymazání.");
                         name = sc.nextLine();
-                        FilmHandler.Delete(hraneFilmy, animovaneFilmy, name);
+                        FilmManager.Delete(hraneFilmy, animovaneFilmy, name);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
@@ -46,20 +46,20 @@ public class Main {
                     try {
                         System.out.println("Jsi u editování filmů - zadej název filmu/animáku pro editnutí.");
                         name = sc.nextLine();
-                        FilmHandler.Edit(hraneFilmy, animovaneFilmy, name);
+                        FilmManager.Edit(hraneFilmy, animovaneFilmy, name);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
                 }
                 //vypis filmů
-                case 4 -> FilmHandler.VypisFilmu(hraneFilmy, animovaneFilmy);
+                case 4 -> FilmManager.VypisFilmu(hraneFilmy, animovaneFilmy);
                 //pridani recenze
                 case 5 -> {
                     sc.nextLine();
                     try {
                         System.out.println("Zadej jméno filmu, kterému chceš přidat recenzi.");
                         String name = sc.nextLine();
-                        ReviewHandler.Pridani(hraneFilmy, animovaneFilmy, name);
+                        ReviewManager.Pridani(hraneFilmy, animovaneFilmy, name);
                     }catch (Exception e){
                         System.out.println(e);
                     }
@@ -70,23 +70,23 @@ public class Main {
                     System.out.println("Zadej návev filmu, který chceš vypsat.");
                     name = sc.nextLine();
                     try{
-                        FilmHandler.Vyhledani(hraneFilmy, animovaneFilmy, name);
+                        FilmManager.Vyhledani(hraneFilmy, animovaneFilmy, name);
                     }catch (Exception e){
                         System.out.println(e);
                     }
                 }
                 case 7 -> { //vypis herců ve více filmech
-                    StaffHandler.Herci(hraneFilmy);
+                    StaffManager.Herci(hraneFilmy);
                 }
                 case 8 -> { //vypis animátorů ve více filmech
-                    StaffHandler.Animatori(animovaneFilmy);
+                    StaffManager.Animatori(animovaneFilmy);
                 }
                 case 9 -> { //vypis filmů na kterých se herec podílel
                     String name;
                     sc.nextLine();
                     System.out.println("Zadej herce/animátora:");
                     name = sc.nextLine();
-                    FilmHandler.VypisHerec(hraneFilmy, animovaneFilmy, name);
+                    FilmManager.VypisHerec(hraneFilmy, animovaneFilmy, name);
                 }
 
                 case 10 -> {
@@ -104,11 +104,11 @@ public class Main {
                 }
                 //ulozeni do souboru
                 case 11 -> {
-                    FileHandler.Ulozeni(hraneFilmy, animovaneFilmy);
+                    FileManager.Ulozeni(hraneFilmy, animovaneFilmy);
                 }
                 //nacteni ze souboru
                 case 12 -> {
-                    FileHandler.Nacteni(hraneFilmy, animovaneFilmy);
+                    FileManager.Nacteni(hraneFilmy, animovaneFilmy);
                 }
             }
         } while (run);

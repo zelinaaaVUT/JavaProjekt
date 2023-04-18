@@ -1,4 +1,4 @@
-package Handlers;
+package Managers;
 
 import Film.Film;
 import Film.FilmAnimated;
@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class FileHandler {
+public final class FileManager {
     public static void Ulozeni(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy){
         String aktDir = System.getProperty("user.dir");
         String dirHrane = aktDir + File.separator + "src" + File.separator + "MovieFiles/Hrane";

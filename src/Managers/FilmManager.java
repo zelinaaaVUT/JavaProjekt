@@ -1,4 +1,4 @@
-package Handlers;
+package Managers;
 
 import Film.Film;
 import Film.FilmAnimated;
@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-public final class FilmHandler {
+public final class FilmManager {
     public static void Pridani(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy){
         Scanner sc = new Scanner(System.in);
         Integer vyber, rokVydani, doporucenyVek;

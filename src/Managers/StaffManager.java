@@ -1,4 +1,4 @@
-package Handlers;
+package Managers;
 
 import Film.Film;
 import Film.FilmAnimated;
@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public final class StaffHandler {
+public final class StaffManager {
     public static void Herci(List<Film> hraneFilmy){
         Integer count = 0;
         String filmy = "";
