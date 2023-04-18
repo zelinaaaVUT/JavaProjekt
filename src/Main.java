@@ -1,9 +1,9 @@
 import Film.Film;
 import Film.FilmAnimated;
-import Metody.*;
-import Recenze.RecenzeAnimated;
-import Recenze.RecenzeLive;
-//import Metody.UlozeniDoSouboru;
+import Handlers.FileHandler;
+import Handlers.FilmHandler;
+import Handlers.ReviewHandler;
+import Handlers.StaffHandler;
 
 import java.util.*;
 
@@ -22,8 +22,7 @@ public class Main {
                 //add
                 case 1 -> {
                     try {
-                        PridaniFilmu pridaniFilmu = new PridaniFilmu();
-                        pridaniFilmu.Pridani(hraneFilmy, animovaneFilmy);
+                        FilmHandler.Pridani(hraneFilmy, animovaneFilmy);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
@@ -35,8 +34,7 @@ public class Main {
                     try {
                         System.out.println("Jsi u mazání filmů - zadej název filmu/animáku pro vymazání.");
                         name = sc.nextLine();
-                        DeleteFilmu deleteFilmu = new DeleteFilmu();
-                        deleteFilmu.Delete(hraneFilmy, animovaneFilmy, name);
+                        FilmHandler.Delete(hraneFilmy, animovaneFilmy, name);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
@@ -48,25 +46,20 @@ public class Main {
                     try {
                         System.out.println("Jsi u editování filmů - zadej název filmu/animáku pro editnutí.");
                         name = sc.nextLine();
-                        EditFilmu editFilmu = new EditFilmu();
-                        editFilmu.Edit(hraneFilmy, animovaneFilmy, name);
+                        FilmHandler.Edit(hraneFilmy, animovaneFilmy, name);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
                 }
                 //vypis filmů
-                case 4 -> {
-                    VypisFilmu vypisFilmu = new VypisFilmu();
-                    vypisFilmu.Vypis(hraneFilmy, animovaneFilmy);
-                }
+                case 4 -> FilmHandler.VypisFilmu(hraneFilmy, animovaneFilmy);
                 //pridani recenze
                 case 5 -> {
                     sc.nextLine();
                     try {
                         System.out.println("Zadej jméno filmu, kterému chceš přidat recenzi.");
                         String name = sc.nextLine();
-                        PridaniRecenze pridaniRecenze = new PridaniRecenze();
-                        pridaniRecenze.Pridani(hraneFilmy, animovaneFilmy, name);
+                        ReviewHandler.Pridani(hraneFilmy, animovaneFilmy, name);
                     }catch (Exception e){
                         System.out.println(e);
                     }
@@ -77,27 +70,23 @@ public class Main {
                     System.out.println("Zadej návev filmu, který chceš vypsat.");
                     name = sc.nextLine();
                     try{
-                        VyhledaniFilmu vyhledaniFilmu = new VyhledaniFilmu();
-                        vyhledaniFilmu.vyhledani(hraneFilmy, animovaneFilmy, name);
+                        FilmHandler.Vyhledani(hraneFilmy, animovaneFilmy, name);
                     }catch (Exception e){
                         System.out.println(e);
                     }
                 }
                 case 7 -> { //vypis herců ve více filmech
-                    HerciMoreThanTwo herciMoreThanTwo = new HerciMoreThanTwo();
-                    herciMoreThanTwo.Herci(hraneFilmy);
+                    StaffHandler.Herci(hraneFilmy);
                 }
                 case 8 -> { //vypis animátorů ve více filmech
-                    AnimatoriMoreThanTwo animatoriMoreThanTwo = new AnimatoriMoreThanTwo();
-                    animatoriMoreThanTwo.Animatori(animovaneFilmy);
+                    StaffHandler.Animatori(animovaneFilmy);
                 }
                 case 9 -> { //vypis filmů na kterých se herec podílel
                     String name;
                     sc.nextLine();
                     System.out.println("Zadej herce/animátora:");
                     name = sc.nextLine();
-                    VypisHerecFilmy vypisHerecFilmy = new VypisHerecFilmy();
-                    vypisHerecFilmy.Vypis(hraneFilmy, animovaneFilmy, name);
+                    FilmHandler.VypisHerec(hraneFilmy, animovaneFilmy, name);
                 }
 
                 case 10 -> {
@@ -115,13 +104,11 @@ public class Main {
                 }
                 //ulozeni do souboru
                 case 11 -> {
-                    UlozeniDoSouboru uds = new UlozeniDoSouboru();
-                    uds.Ulozeni(hraneFilmy, animovaneFilmy);
+                    FileHandler.Ulozeni(hraneFilmy, animovaneFilmy);
                 }
                 //nacteni ze souboru
                 case 12 -> {
-                    NacteniZeSouboru nacteniZeSouboru = new NacteniZeSouboru();
-                    nacteniZeSouboru.Nacteni(hraneFilmy, animovaneFilmy);
+                    FileHandler.Nacteni(hraneFilmy, animovaneFilmy);
                 }
             }
         } while (run);
@@ -134,62 +121,5 @@ public class Main {
             f.printAllStaff();
             f.printAllRecenze();
         }
-        /*Film.Film film = new Film.Film("Nejaky film", "Kdo vi kdo", 2010);
-        film.addRecenze(new RecenzeAnimated("Pavel Polak", "Jo dobry", 5, 13));
-        film.addStaff("Petr");
-        film.addStaff("Lucie");
-        film.addStaff("Tomas");
-        System.out.println("-------------");
-        Film.Film film2 = new Film.Film("Matrix 2022", "No name", 2022);
-        film2.addRecenze(new RecenzeLive("Petr Zelinka", "Fakt hnus", "***"));
-        film.addStaff("No name... prostě");
-        filmy.add(film);
-        filmy.add(film2);
-        for (Film.Film f : filmy)
-        {
-            System.out.println("Film.Film: " + f.getName());
-            System.out.println("Director: " + f.getDirector());
-            film.printAllStaff();
-            f.printAllRecenze();
-        }
-        // Vypis filmu
-        for (Film.Film f : filmy)
-        {
-            System.out.println("Film.Film: " + f.getName());
-            System.out.println("Director: " + f.getDirector());
-            film.printAllStaff();
-            f.printAllRecenze();
-        }
-        // Vypis filmu
-        String filterName = "Nejaky film";
-        for (Film.Film f : filmy)
-        {
-            if (f.getName().equals(filterName))
-            {
-                System.out.println("Film.Film: " + f.getName());
-                System.out.println("Director: " + f.getDirector());
-                film.printAllStaff();
-                f.printAllRecenze();
-            }
-        }
-        // Úprava filmu:
-        filterName = "Nejaky film";
-        for (Film.Film f : filmy)
-        {
-            if (f.getName().equals(filterName))
-            {
-                // DO STUFF
-            }
-        }
-        // Smazání filmu
-        filterName = "Nejaky film";
-        for (Film.Film f : filmy)
-        {
-            if (f.getName().equals(filterName))
-            {
-                filmy.remove(f);
-                break;
-            }
-        }*/
     }
 }
