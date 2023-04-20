@@ -119,8 +119,14 @@ public class Main {
                 }
                 case 13 ->{
                     InsertQueries insertQueries = new InsertQueries();
-                    insertQueries.performInsertQuery("INSERT INTO FilmHrany " + "(nazev,reziser,rok_vydani)"
-                            + "VALUES('Avatar', 'James Cameron','2009')");
+                    for (Film f : hraneFilmy){
+                        System.out.println(f.getName());
+                        insertQueries.insertNewFilm(f.getName(), f.getDirector(), f.getRokVydani(), f.returnStaffName());
+                    }
+                    for (FilmAnimated f : animovaneFilmy){
+                        System.out.println(f.getName());
+                        insertQueries.insertNewAnimatedFilm(f.getName(), f.getDirector(), f.getRokVydani(), f.getMinVek(), f.returnStaffName());
+                    }
                 }
             }
         } while (run);
