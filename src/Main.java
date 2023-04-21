@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import crud.SelectQueries;
 import dbconn.DBConnection;
 import crud.InsertQueries;
 
@@ -127,6 +129,13 @@ public class Main {
                         System.out.println(f.getName());
                         insertQueries.insertNewAnimatedFilm(f.getName(), f.getDirector(), f.getRokVydani(), f.getMinVek(), f.returnStaffName());
                     }
+                    insertQueries.InsertReviewFilm(hraneFilmy);
+                    insertQueries.InsertReviewFilmAnimated(animovaneFilmy);
+                }
+                case 14->{
+                    SelectQueries selectQueries = new SelectQueries();
+                    selectQueries.LoadAnimatedFilmFromDB(animovaneFilmy);
+                    selectQueries.LoadFilmFromDB(hraneFilmy);
                 }
             }
         } while (run);
