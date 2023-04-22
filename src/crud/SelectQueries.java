@@ -8,7 +8,6 @@ import java.util.List;
 
 import Film.Film;
 import Film.FilmAnimated;
-import Managers.FilmManager;
 import Recenze.RecenzeAnimated;
 import Recenze.RecenzeLive;
 import dbconn.DBConnection;

@@ -68,12 +68,13 @@ public final class FilmManager {
         }
     }
 
-    public static void Delete(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name) {
+    public static void Delete(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name, List<Integer> toBeDeletedSQL_Live, List<Integer> toBeDeletedSQL_Animated) {
         if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()) {
             System.out.println("Databaze s hranými a animovanými filmy je prázdná.");
         } else {
             for (Film f : hraneFilmy) {
                 if (f.getName().equals(name)) {
+                    toBeDeletedSQL_Live.add(f.getSQLID());
                     hraneFilmy.remove(f);
                     System.out.printf("Odebral jsem hraný film s názvem: %s%n", name);
                     break;
@@ -84,6 +85,7 @@ public final class FilmManager {
             }
             for (FilmAnimated f : animovaneFilmy) {
                 if (f.getName().equals(name)) {
+                    toBeDeletedSQL_Animated.add(f.getSQLID());
                     animovaneFilmy.remove(f);
                     System.out.printf("Odebral jsi animovaný film s názvem: %s%n", name);
                     break;

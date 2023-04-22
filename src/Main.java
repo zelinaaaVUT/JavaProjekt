@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import crud.DeleteQueries;
 import crud.SelectQueries;
 import crud.UpdateQueries;
 import dbconn.DBConnection;
@@ -23,6 +24,8 @@ public class Main {
         int input;
         List<Film> hraneFilmy = new ArrayList<>();
         List<FilmAnimated> animovaneFilmy = new ArrayList<>();
+        List<Integer> toBeDeletedSQL_Live = new ArrayList<>();
+        List<Integer> toBeDeletedSQL_Animated = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         do {
@@ -40,11 +43,11 @@ public class Main {
                 //delete
                 case 2 -> {
                     String name;
-                    //sc.nextLine();
                     try {
+                        sc.nextLine();
                         System.out.println("Jsi u mazání filmů - zadej název filmu/animáku pro vymazání.");
                         name = sc.nextLine();
-                        FilmManager.Delete(hraneFilmy, animovaneFilmy, name);
+                        FilmManager.Delete(hraneFilmy, animovaneFilmy, name, toBeDeletedSQL_Live, toBeDeletedSQL_Animated);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
@@ -140,8 +143,10 @@ public class Main {
                 }
                 case 15->{
                     UpdateQueries updateQueries = new UpdateQueries();
+                    DeleteQueries deleteQueries = new DeleteQueries();
                     updateQueries.UpdateFilmDB(hraneFilmy);
                     updateQueries.UpdateFilmAnimatedDB(animovaneFilmy);
+                    deleteQueries.DeleteFilm(hraneFilmy, animovaneFilmy, toBeDeletedSQL_Live, toBeDeletedSQL_Animated);
                     run = false;
                 }
             }

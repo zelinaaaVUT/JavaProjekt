@@ -2,15 +2,11 @@ package crud;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import Film.Film;
 import Film.FilmAnimated;
-import Managers.FilmManager;
-import Recenze.RecenzeAnimated;
-import Recenze.RecenzeLive;
 import dbconn.DBConnection;
 
 public class UpdateQueries {
