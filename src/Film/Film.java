@@ -11,6 +11,8 @@ public class Film {
     private String name;
     private String director;
     private Integer rokVydani;
+    private int SQLID = 0;
+    private boolean isChanged = false;
     private final List<String> staff;
     private final List<Recenze> recenze;
 
@@ -84,5 +86,20 @@ public class Film {
 
     public void removeStaff(String name) {
         staff.remove(name);
+    }
+
+    public Integer getSQLID() {
+        return SQLID;
+    }
+
+    public void setSQLID(int filmID){
+        this.SQLID = filmID;
+    }
+    public boolean isChanged() {
+        return isChanged;
+    }
+
+    public void setChanged() {
+        isChanged = true;
     }
 }

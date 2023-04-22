@@ -5,6 +5,8 @@ import java.util.List;
 
 public class FilmAnimated extends Film {
     private Integer minVek;
+    private int SQLID = 0;
+    private boolean isChanged = false;
     private final List<String> staff;
 
     public FilmAnimated(String name, String director, Integer rokVydani, Integer minVek) {

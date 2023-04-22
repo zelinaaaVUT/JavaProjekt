@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import crud.SelectQueries;
+import crud.UpdateQueries;
 import dbconn.DBConnection;
 import crud.InsertQueries;
 
@@ -39,7 +40,7 @@ public class Main {
                 //delete
                 case 2 -> {
                     String name;
-                    sc.nextLine();
+                    //sc.nextLine();
                     try {
                         System.out.println("Jsi u mazání filmů - zadej název filmu/animáku pro vymazání.");
                         name = sc.nextLine();
@@ -51,8 +52,8 @@ public class Main {
                 //edit
                 case 3 -> {
                     String name;
-                    sc.nextLine();
                     try {
+                        sc.nextLine();
                         System.out.println("Jsi u editování filmů - zadej název filmu/animáku pro editnutí.");
                         name = sc.nextLine();
                         FilmManager.Edit(hraneFilmy, animovaneFilmy, name);
@@ -64,7 +65,7 @@ public class Main {
                 case 4 -> FilmManager.VypisFilmu(hraneFilmy, animovaneFilmy);
                 //pridani recenze
                 case 5 -> {
-                    sc.nextLine();
+                    //sc.nextLine();
                     try {
                         System.out.println("Zadej jméno filmu, kterému chceš přidat recenzi.");
                         String name = sc.nextLine();
@@ -75,7 +76,7 @@ public class Main {
                 }
                 case 6 -> { //vyhledani filmu not working
                     String name;
-                    sc.nextLine();
+                    //sc.nextLine();
                     System.out.println("Zadej návev filmu, který chceš vypsat.");
                     name = sc.nextLine();
                     try{
@@ -92,7 +93,7 @@ public class Main {
                 }
                 case 9 -> { //vypis filmů na kterých se herec podílel
                     String name;
-                    sc.nextLine();
+                    //sc.nextLine();
                     System.out.println("Zadej herce/animátora:");
                     name = sc.nextLine();
                     FilmManager.VypisHerec(hraneFilmy, animovaneFilmy, name);
@@ -137,16 +138,13 @@ public class Main {
                     selectQueries.LoadAnimatedFilmFromDB(animovaneFilmy);
                     selectQueries.LoadFilmFromDB(hraneFilmy);
                 }
+                case 15->{
+                    UpdateQueries updateQueries = new UpdateQueries();
+                    updateQueries.UpdateFilmDB(hraneFilmy);
+                    updateQueries.UpdateFilmAnimatedDB(animovaneFilmy);
+                    run = false;
+                }
             }
         } while (run);
-
-        for (FilmAnimated f : animovaneFilmy) {
-            System.out.println("Film.Film: " + f.getName());
-            System.out.println("Director: " + f.getDirector());
-            System.out.println("Rok vydaní: " + f.getRokVydani());
-            System.out.println("Doporučený věk: " + f.getMinVek());
-            f.printAllStaff();
-            f.printAllRecenze();
-        }
     }
 }

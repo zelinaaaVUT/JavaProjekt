@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public final class FilmManager {
-    public static void Pridani(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy){
+    public static void Pridani(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy) {
         Scanner sc = new Scanner(System.in);
         Integer vyber, rokVydani, doporucenyVek;
         String name, director, actor;
@@ -67,10 +67,11 @@ public final class FilmManager {
             animovaneFilmy.add(film);
         }
     }
-    public static void Delete(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name){
+
+    public static void Delete(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name) {
         if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()) {
             System.out.println("Databaze s hranými a animovanými filmy je prázdná.");
-        }else{
+        } else {
             for (Film f : hraneFilmy) {
                 if (f.getName().equals(name)) {
                     hraneFilmy.remove(f);
@@ -93,16 +94,19 @@ public final class FilmManager {
             }
         }
     }
+
     public static void Edit(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name) {
         Scanner sc = new Scanner(System.in);
         String director, actor = "", vyberStaff;
         Integer rokVydani, vyber, minVek;
-        boolean zamestanci = true;
+        boolean zamestanci = true, flag = false;
         if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()) {
             System.out.println("Databaze s hranými a animovanými filmy je prázdná.");
         } else {
             for (Film f : hraneFilmy) {
                 if (f.getName().equals(name)) {
+                    flag = true;
+                    f.setChanged();
                     name = f.getName();
                     director = f.getDirector();
                     rokVydani = f.getRokVydani();
@@ -176,19 +180,22 @@ public final class FilmManager {
                             }
                         }
                     }
-                } else {
-                    System.out.println("takový film nemám v databázi.");
-                    break;
                 }
+            }
+            if (!flag){
+                System.out.println("Takový hraný film nemám v databázi.");
+                flag = false;
             }
             for (FilmAnimated f : animovaneFilmy) {
                 if (f.getName().equals(name)) {
+                    flag = true;
+                    f.setChanged();
                     name = f.getName();
                     director = f.getDirector();
                     rokVydani = f.getRokVydani();
                     minVek = f.getMinVek();
 
-                    System.out.println("Film jsem našel v databázi, co chceš upravit?");
+                    System.out.println("Animovaný film jsem našel v databázi, co chceš upravit?");
                     System.out.println("1 - název filmu, 2 - režiséra filmu, 3 - rok vydání, 4 - doporučený věk, 5 - herce");
                     vyber = sc.nextInt();
                     switch (vyber) {
@@ -264,22 +271,24 @@ public final class FilmManager {
                         }
 
                     }
-                } else {
-                    System.out.println("takový film nemám v databázi.");
-                    break;
                 }
+            }
+            if (!flag){
+                System.out.println("Takový animovaný film nemám v databázi.");
+                flag = false;
             }
         }
     }
-    public static void VypisFilmu(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy){
-        if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()){
+
+    public static void VypisFilmu(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy) {
+        if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()) {
             System.out.println("Databáze je prázdná.");
             System.out.println("-----------------------------------------.");
-        }else {
+        } else {
             if (hraneFilmy.isEmpty()) {
                 System.out.println("Databáze s hranými filmy je prázdná.");
                 System.out.println("-----------------------------------------.");
-            }else {
+            } else {
                 for (Film f : hraneFilmy) {
                     System.out.println("-----------------------------------------.");
                     System.out.println("Film: " + f.getName());
@@ -316,6 +325,7 @@ public final class FilmManager {
         }
         return counter;
     }
+
     public static void Vyhledani(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name) {
         for (Film f : hraneFilmy) {
             if (f.getName().equals(name)) {
@@ -331,7 +341,7 @@ public final class FilmManager {
                 System.out.println("Director: " + f.getDirector());
                 System.out.println("Rok vydaní: " + f.getRokVydani());
                 System.out.println("Hodnocení sestupně: ");
-                for (Recenze serazene : recenze){
+                for (Recenze serazene : recenze) {
                     System.out.printf("Jmeno divaka: %s, Komentar: %s, Hodnoceni: %s\n",
                             serazene.getJmenoDivaka(), serazene.getKomentar(), serazene.getHodnoceni());
                 }
@@ -354,7 +364,7 @@ public final class FilmManager {
                 System.out.println("Rok vydaní: " + f.getRokVydani());
                 System.out.println("Doporučený věk: " + f.getMinVek());
                 System.out.println("Hodnocení sestupně: ");
-                for (Recenze serazene : recenze){
+                for (Recenze serazene : recenze) {
                     System.out.printf("Jmeno divaka: %s, Komentar: %s, Hodnoceni: %s\n",
                             serazene.getJmenoDivaka(), serazene.getKomentar(), serazene.getHodnoceni());
                 }
@@ -363,14 +373,15 @@ public final class FilmManager {
             }
         }
     }
-    public static void VypisHerec(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name){
-        for (Film f : hraneFilmy){
-            if (f.getStaff().contains(name)){
-                System.out.println("Hraný film: " +f.getName());
+
+    public static void VypisHerec(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name) {
+        for (Film f : hraneFilmy) {
+            if (f.getStaff().contains(name)) {
+                System.out.println("Hraný film: " + f.getName());
             }
         }
-        for (FilmAnimated f : animovaneFilmy){
-            if (f.getStaff().contains(name)){
+        for (FilmAnimated f : animovaneFilmy) {
+            if (f.getStaff().contains(name)) {
                 System.out.println("Animák: " + f.getName());
             }
         }

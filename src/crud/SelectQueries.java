@@ -118,6 +118,7 @@ public class SelectQueries {
                 Film film = new Film(rs.getString("nazev"), rs.getString("reziser"), rs.getInt("rok_vydani"));
                 hraneFilmy.add(film);
                 filmID = rs.getInt("ID_hrany");
+                film.setSQLID(filmID);
 
                 PreparedStatement prStmtHerci = conn.prepareStatement(selectHerci);
                 prStmtHerci.setInt(1, filmID);
@@ -157,6 +158,7 @@ public class SelectQueries {
                 FilmAnimated film = new FilmAnimated(rs.getString("nazev"), rs.getString("reziser"), rs.getInt("rok_vydani"), rs.getInt("doporuceny_vek"));
                 animovaneFilmy.add(film);
                 filmID = rs.getInt("ID_animovany");
+                film.setSQLID(filmID);
 
                 PreparedStatement prStmtHerci = conn.prepareStatement(selectAnimatori);
                 prStmtHerci.setInt(1, filmID);
