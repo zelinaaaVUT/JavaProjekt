@@ -30,7 +30,6 @@ public class InsertQueries {
 
         try {
             if (check.CheckForDuplicateInsertMovie(conn, nazev, reziser, rok_vydani)){
-                System.out.println("Duplikátní záznam filmu.");
             }else {
                 PreparedStatement prStmt = conn.prepareStatement(insertFilm);
                 prStmt.setString(1, nazev);
@@ -50,15 +49,12 @@ public class InsertQueries {
             }
 
             if (check.CheckForDuplicateInsertHerci(conn, staff.toString(), filmID)){
-                System.out.println("Duplikátní záznam herců.");
             } else if (filmID == 0) {
-                System.out.println("Duplikátní záznam herců.");
             } else {
                 PreparedStatement prStmtHerci = conn.prepareStatement(insertHerci);
                 prStmtHerci.setString(1, staff.toString());
                 prStmtHerci.setInt(2, filmID);
                 prStmtHerci.executeUpdate();
-                System.out.println("Herci vloženi do databáze");
             }
         } catch (SQLException e) {
             System.out.println("Údaje už byly vloženy nebo jste zadali špatný SQL příkaz INSERT");
@@ -79,7 +75,6 @@ public class InsertQueries {
 
         try {
             if (check.CheckForDuplicateInsertAnimatedMovie(conn, nazev, reziser, rok_vydani, doporuceny_vek)){
-                System.out.println("Duplikátní záznam animovaného filmu.");
             }else {
                 PreparedStatement prStmt = conn.prepareStatement(insertFilm);
                 prStmt.setString(1, nazev);
@@ -88,7 +83,6 @@ public class InsertQueries {
                 prStmt.setInt(4, doporuceny_vek);
 
                 prStmt.executeUpdate();
-                System.out.println("Nový uživatel byl vložen do databáze!");
 
                 try (var autoID = prStmt.getGeneratedKeys()){
                     if (autoID.next()){
@@ -100,15 +94,12 @@ public class InsertQueries {
             }
 
             if (check.CheckForDuplicateInsertAnimatori(conn, staff.toString(), filmID)){
-                System.out.println("Duplikátní záznam animátorů.");
             } else if (filmID == 0) {
-                System.out.println("Duplikátní záznam animátorů.");
             } else {
                 PreparedStatement prStmtHerci = conn.prepareStatement(insertHerci);
                 prStmtHerci.setString(1, staff.toString());
                 prStmtHerci.setInt(2, filmID);
                 prStmtHerci.executeUpdate();
-                System.out.println("Animátoři vloženi do databáze");
             }
         } catch (SQLException e) {
             System.out.println("Údaje už byly vloženy nebo jste zadali špatný SQL příkaz INSERT");
@@ -145,14 +136,12 @@ public class InsertQueries {
                 PreparedStatement prStmtRecenze = conn.prepareStatement(insertRecenze);
                 for (Recenze a : recenze){
                     if (check.CheckForDuplicateInsertReviewLive(conn, a.getJmenoDivaka(), a.getKomentar(), a.getHodnoceni(), filmID)){
-                        System.out.println("Duplikátní recenze");
                     }else {
                         prStmtRecenze.setString(1, a.getJmenoDivaka());
                         prStmtRecenze.setString(2, a.getKomentar());
                         prStmtRecenze.setString(3, a.getHodnoceni());
                         prStmtRecenze.setInt(4, filmID);
                         prStmtRecenze.executeUpdate();
-                        System.out.println("Recenze hraných filmů vloženy do databáze");
                     }
                 }
 
@@ -192,14 +181,12 @@ public class InsertQueries {
                 PreparedStatement prStmtRecenze = conn.prepareStatement(insertRecenze);
                 for (Recenze a : recenze){
                     if (check.CheckForDuplicateInsertReviewAnimated(conn, a.getJmenoDivaka(), a.getKomentar(), a.getHodnoceni(), filmID)){
-                        System.out.println("Duplikátní recenze");
                     }else {
                         prStmtRecenze.setString(1, a.getJmenoDivaka());
                         prStmtRecenze.setString(2, a.getKomentar());
                         prStmtRecenze.setString(3, a.getHodnoceni());
                         prStmtRecenze.setInt(4, filmID);
                         prStmtRecenze.executeUpdate();
-                        System.out.println("Recenze animovaných filmů vloženy do databáze");
                     }
                 }
 

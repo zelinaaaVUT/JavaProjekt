@@ -31,7 +31,6 @@ public final class FilmManager {
 
             System.out.println("Ted budeš zadávat herce - ukonci přidávání napsáním s stop.");
             while (zamestanci) {
-                //sc.nextLine();
                 actor = sc.nextLine();
                 if (actor.equals("s")) {
                     zamestanci = false;

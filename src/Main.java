@@ -27,12 +27,13 @@ public class Main {
         List<Integer> toBeDeletedSQL_Live = new ArrayList<>();
         List<Integer> toBeDeletedSQL_Animated = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-
+        NacteniZSQL(hraneFilmy, animovaneFilmy);
         do {
-            System.out.println("Zadej input - čísla TBD");
+            System.out.println("\n1 - přidání filmu\n2 - vymazání filmu\n3 - editnutí filmu\n4 - výpis všech filmu\n5 - přídání recenze\n6 - vyhledání filmu\n" +
+                    "7 - výpis herců, kteří se podíleli na více filmech\n8 - výpis animátorů, kteří se podíleli na více filmech\n" +
+                    "9 - výpis filmů, na kterých se herec podílel\n10 - uložení do souboru\n11 - načtení ze souboru\n12 - ukončení programu");
             input = sc.nextInt();
             switch (input) {
-                //add
                 case 1 -> {
                     try {
                         FilmManager.Pridani(hraneFilmy, animovaneFilmy);
@@ -40,7 +41,6 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                //delete
                 case 2 -> {
                     String name;
                     try {
@@ -52,7 +52,6 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                //edit
                 case 3 -> {
                     String name;
                     try {
@@ -64,12 +63,10 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                //vypis filmů
                 case 4 -> FilmManager.VypisFilmu(hraneFilmy, animovaneFilmy);
-                //pridani recenze
                 case 5 -> {
-                    //sc.nextLine();
                     try {
+                        sc.nextLine();
                         System.out.println("Zadej jméno filmu, kterému chceš přidat recenzi.");
                         String name = sc.nextLine();
                         ReviewManager.Pridani(hraneFilmy, animovaneFilmy, name);
@@ -77,9 +74,9 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                case 6 -> { //vyhledani filmu not working
+                case 6 -> {
                     String name;
-                    //sc.nextLine();
+                    sc.nextLine();
                     System.out.println("Zadej návev filmu, který chceš vypsat.");
                     name = sc.nextLine();
                     try{
@@ -88,68 +85,54 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                case 7 -> { //vypis herců ve více filmech
+                case 7 -> {
                     StaffManager.Herci(hraneFilmy);
                 }
-                case 8 -> { //vypis animátorů ve více filmech
+                case 8 -> {
                     StaffManager.Animatori(animovaneFilmy);
                 }
-                case 9 -> { //vypis filmů na kterých se herec podílel
+                case 9 -> {
                     String name;
-                    //sc.nextLine();
+                    sc.nextLine();
                     System.out.println("Zadej herce/animátora:");
                     name = sc.nextLine();
                     FilmManager.VypisHerec(hraneFilmy, animovaneFilmy, name);
                 }
-
                 case 10 -> {
-                    if (hraneFilmy.isEmpty()) {
-                        System.out.println("helllo");
-                    }
-                    for (Film f : hraneFilmy) {
-                        System.out.println("Film: " + f.getName());
-                        System.out.println("Director: " + f.getDirector());
-                        System.out.println("Rok vydaní: " + f.getRokVydani());
-                        //System.out.println("Doporučený věk: " + f.getMinVek());
-                        f.printAllStaff();
-                        f.printAllRecenze();
-                    }
-                }
-                //ulozeni do souboru
-                case 11 -> {
                     FileManager.Ulozeni(hraneFilmy, animovaneFilmy);
                 }
-                //nacteni ze souboru
-                case 12 -> {
+                case 11 -> {
                     FileManager.Nacteni(hraneFilmy, animovaneFilmy);
                 }
-                case 13 ->{
-                    InsertQueries insertQueries = new InsertQueries();
-                    for (Film f : hraneFilmy){
-                        System.out.println(f.getName());
-                        insertQueries.insertNewFilm(f.getName(), f.getDirector(), f.getRokVydani(), f.returnStaffName());
-                    }
-                    for (FilmAnimated f : animovaneFilmy){
-                        System.out.println(f.getName());
-                        insertQueries.insertNewAnimatedFilm(f.getName(), f.getDirector(), f.getRokVydani(), f.getMinVek(), f.returnStaffName());
-                    }
-                    insertQueries.InsertReviewFilm(hraneFilmy);
-                    insertQueries.InsertReviewFilmAnimated(animovaneFilmy);
-                }
-                case 14->{
-                    SelectQueries selectQueries = new SelectQueries();
-                    selectQueries.LoadAnimatedFilmFromDB(animovaneFilmy);
-                    selectQueries.LoadFilmFromDB(hraneFilmy);
-                }
-                case 15->{
-                    UpdateQueries updateQueries = new UpdateQueries();
-                    DeleteQueries deleteQueries = new DeleteQueries();
-                    updateQueries.UpdateFilmDB(hraneFilmy);
-                    updateQueries.UpdateFilmAnimatedDB(animovaneFilmy);
-                    deleteQueries.DeleteFilm(hraneFilmy, animovaneFilmy, toBeDeletedSQL_Live, toBeDeletedSQL_Animated);
+                case 12->{
+                    UpdateSQL(hraneFilmy, animovaneFilmy, toBeDeletedSQL_Live, toBeDeletedSQL_Animated);
+                    UlozeniDoSQL(hraneFilmy, animovaneFilmy);
                     run = false;
                 }
             }
         } while (run);
+    }
+    public static void UlozeniDoSQL(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy){
+        InsertQueries insertQueries = new InsertQueries();
+        for (Film f : hraneFilmy){
+            insertQueries.insertNewFilm(f.getName(), f.getDirector(), f.getRokVydani(), f.returnStaffName());
+        }
+        for (FilmAnimated f : animovaneFilmy){
+            insertQueries.insertNewAnimatedFilm(f.getName(), f.getDirector(), f.getRokVydani(), f.getMinVek(), f.returnStaffName());
+        }
+        insertQueries.InsertReviewFilm(hraneFilmy);
+        insertQueries.InsertReviewFilmAnimated(animovaneFilmy);
+    }
+    public static void NacteniZSQL(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy){
+        SelectQueries selectQueries = new SelectQueries();
+        selectQueries.LoadAnimatedFilmFromDB(animovaneFilmy);
+        selectQueries.LoadFilmFromDB(hraneFilmy);
+    }
+    public static void UpdateSQL(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, List<Integer> toBeDeletedSQL_Live, List<Integer> toBeDeletedSQL_Animated){
+        UpdateQueries updateQueries = new UpdateQueries();
+        DeleteQueries deleteQueries = new DeleteQueries();
+        updateQueries.UpdateFilmDB(hraneFilmy);
+        updateQueries.UpdateFilmAnimatedDB(animovaneFilmy);
+        deleteQueries.DeleteFilm(hraneFilmy, animovaneFilmy, toBeDeletedSQL_Live, toBeDeletedSQL_Animated);
     }
 }

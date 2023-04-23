@@ -1,10 +1,7 @@
 package Film;
 
 import Recenze.Recenze;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class Film {
@@ -59,13 +56,6 @@ public class Film {
 
     public void addRecenze(Recenze novaRecenze) {
         recenze.add(novaRecenze);
-    }
-
-    public void printAllRecenze() {
-        recenze.forEach((value) ->
-        {
-            value.printRecenze();
-        });
     }
 
     public List<Recenze> getRecenze() {
