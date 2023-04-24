@@ -5,15 +5,9 @@ import Managers.FilmManager;
 import Managers.ReviewManager;
 import Managers.StaffManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import crud.DeleteQueries;
 import crud.SelectQueries;
 import crud.UpdateQueries;
-import dbconn.DBConnection;
 import crud.InsertQueries;
 
 import java.util.*;
@@ -29,9 +23,20 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         NacteniZSQL(hraneFilmy, animovaneFilmy);
         do {
-            System.out.println("\n1 - přidání filmu\n2 - vymazání filmu\n3 - editnutí filmu\n4 - výpis všech filmu\n5 - přídání recenze\n6 - vyhledání filmu\n" +
-                    "7 - výpis herců, kteří se podíleli na více filmech\n8 - výpis animátorů, kteří se podíleli na více filmech\n" +
-                    "9 - výpis filmů, na kterých se herec podílel\n10 - uložení do souboru\n11 - načtení ze souboru\n12 - ukončení programu");
+            System.out.println("""
+
+                    1 - přidání filmu
+                    2 - vymazání filmu
+                    3 - editnutí filmu
+                    4 - výpis všech filmu
+                    5 - přídání recenze
+                    6 - vyhledání filmu
+                    7 - výpis herců, kteří se podíleli na více filmech
+                    8 - výpis animátorů, kteří se podíleli na více filmech
+                    9 - výpis filmů, na kterých se herec podílel
+                    10 - uložení do souboru
+                    11 - načtení ze souboru
+                    12 - ukončení programu""");
             input = sc.nextInt();
             switch (input) {
                 case 1 -> {
@@ -85,12 +90,8 @@ public class Main {
                         System.out.println(e);
                     }
                 }
-                case 7 -> {
-                    StaffManager.Herci(hraneFilmy);
-                }
-                case 8 -> {
-                    StaffManager.Animatori(animovaneFilmy);
-                }
+                case 7 -> StaffManager.Herci(hraneFilmy);
+                case 8 -> StaffManager.Animatori(animovaneFilmy);
                 case 9 -> {
                     String name;
                     sc.nextLine();
@@ -98,12 +99,8 @@ public class Main {
                     name = sc.nextLine();
                     FilmManager.VypisHerec(hraneFilmy, animovaneFilmy, name);
                 }
-                case 10 -> {
-                    FileManager.Ulozeni(hraneFilmy, animovaneFilmy);
-                }
-                case 11 -> {
-                    FileManager.Nacteni(hraneFilmy, animovaneFilmy);
-                }
+                case 10 -> FileManager.Ulozeni(hraneFilmy, animovaneFilmy);
+                case 11 -> FileManager.Nacteni(hraneFilmy, animovaneFilmy);
                 case 12->{
                     UpdateSQL(hraneFilmy, animovaneFilmy, toBeDeletedSQL_Live, toBeDeletedSQL_Animated);
                     UlozeniDoSQL(hraneFilmy, animovaneFilmy);

@@ -4,6 +4,7 @@ import Film.Film;
 import Film.FilmAnimated;
 import Recenze.Recenze;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -68,6 +69,12 @@ public final class FilmManager {
     }
 
     public static void Delete(List<Film> hraneFilmy, List<FilmAnimated> animovaneFilmy, String name, List<Integer> toBeDeletedSQL_Live, List<Integer> toBeDeletedSQL_Animated) {
+        String aktDir = System.getProperty("user.dir");
+        String dirHrane = aktDir + File.separator + "src" + File.separator + "MovieFiles/Hrane";
+        String dirAnimovane = aktDir + File.separator + "src" + File.separator + "MovieFiles/Animovane";
+
+        boolean flagHrany = false;
+        boolean flagAnimovany = false;
         if (hraneFilmy.isEmpty() && animovaneFilmy.isEmpty()) {
             System.out.println("Databaze s hranými a animovanými filmy je prázdná.");
         } else {
@@ -76,22 +83,34 @@ public final class FilmManager {
                     toBeDeletedSQL_Live.add(f.getSQLID());
                     hraneFilmy.remove(f);
                     System.out.printf("Odebral jsem hraný film s názvem: %s%n", name);
-                    break;
-                } else {
-                    System.out.println("Takový film v databázi nemám.");
+                    flagHrany = true;
+                    File fileToDelete = new File(dirHrane, f.getName() + ".txt");
+
+                    if (fileToDelete.exists()){
+                        fileToDelete.delete();
+                    }
                     break;
                 }
+            }
+            if (!flagHrany){
+                System.out.println("Takový hraný film v databázi nemám.");
             }
             for (FilmAnimated f : animovaneFilmy) {
                 if (f.getName().equals(name)) {
                     toBeDeletedSQL_Animated.add(f.getSQLID());
                     animovaneFilmy.remove(f);
                     System.out.printf("Odebral jsi animovaný film s názvem: %s%n", name);
-                    break;
-                } else {
-                    System.out.println("Takový animák v databázi nemám.");
+                    flagAnimovany = true;
+                    File fileToDelete = new File(dirAnimovane, f.getName() + ".txt");
+
+                    if (fileToDelete.exists()){
+                        fileToDelete.delete();
+                    }
                     break;
                 }
+            }
+            if (!flagAnimovany){
+                System.out.println("Takový animovaný film v databázi nemám.");
             }
         }
     }
