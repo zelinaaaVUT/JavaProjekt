@@ -30,7 +30,6 @@ public final class ReviewManager {
                     counter = hodnoceni.chars().filter(ch -> ch == '*').count();
                     if (counter < 1 || counter > 5){
                         System.out.println("Špatně zadané hodnocení. Musíš zadat 1-5 *. Začni znovu.");
-                        //break;
                     }else {
                         System.out.println("Recenze přidána.");
                         f.addRecenze(new RecenzeLive(divak, komentar, hodnoceni));
@@ -53,7 +52,6 @@ public final class ReviewManager {
                     hodnoceni = sc.nextLine();
                     if (Integer.parseInt(hodnoceni) < 1 || Integer.parseInt(hodnoceni) > 10){
                         System.out.println("Špatně zadané hodnocení. Musíš zadat 1-10. Začni znovu.");
-                        //break;
                     }else {
                         System.out.println("Recenze přidána.");
                         f.addRecenze(new RecenzeAnimated(divak, komentar, hodnoceni));

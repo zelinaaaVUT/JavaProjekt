@@ -124,7 +124,7 @@ public class SelectQueries {
                 ResultSet rsHerci = prStmtHerci.executeQuery();
                 if (rsHerci.next()){
                     herci = rsHerci.getString("jmeno");
-                    String[] staffSplit = (herci.substring(1, herci.length() - 1)).split(", "); //removes brackets, split by comma and put it in array
+                    String[] staffSplit = (herci.substring(1, herci.length() - 1)).split(", ");
                     for (String herec : staffSplit){
                         film.addStaff(herec);
                     }
@@ -164,7 +164,7 @@ public class SelectQueries {
                 ResultSet rsAnimatori = prStmtHerci.executeQuery();
                 if (rsAnimatori.next()){
                     animatori = rsAnimatori.getString("jmeno");
-                    String[] staffSplit = (animatori.substring(1, animatori.length() - 1)).split(", "); //removes brackets, split by comma and put it in array
+                    String[] staffSplit = (animatori.substring(1, animatori.length() - 1)).split(", ");
                     for (String animator : staffSplit){
                         film.addStaff(animator);
                     }

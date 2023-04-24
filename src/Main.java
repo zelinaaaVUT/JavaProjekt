@@ -9,6 +9,7 @@ import crud.DeleteQueries;
 import crud.SelectQueries;
 import crud.UpdateQueries;
 import crud.InsertQueries;
+import dbconn.DBConnection;
 
 import java.util.*;
 
@@ -104,6 +105,7 @@ public class Main {
                 case 12->{
                     UpdateSQL(hraneFilmy, animovaneFilmy, toBeDeletedSQL_Live, toBeDeletedSQL_Animated);
                     UlozeniDoSQL(hraneFilmy, animovaneFilmy);
+                    DBConnection.closeConnection();
                     run = false;
                 }
             }

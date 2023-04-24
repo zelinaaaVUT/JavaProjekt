@@ -15,7 +15,6 @@ public final class StaffManager {
         Map<String, Integer> test = new HashMap<>();
         Map<String, String> test2 = new HashMap<>();
 
-        //získání počtu v kolikati filmech se herec vyskytuje
         for (Film f : hraneFilmy){
             List<String> staff = f.returnStaffName();
             for (String herec : staff){
@@ -53,7 +52,6 @@ public final class StaffManager {
         Map<String, Integer> test = new HashMap<>();
         Map<String, String> test2 = new HashMap<>();
 
-        //získání počtu v kolikati filmech se herec vyskytuje
         for (FilmAnimated f : animovaneFilmy){
             List<String> staff = f.returnStaffName();
             for (String herec : staff){

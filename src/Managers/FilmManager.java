@@ -314,7 +314,6 @@ public final class FilmManager {
                     System.out.println("Film: " + f.getName());
                     System.out.println("Director: " + f.getDirector());
                     System.out.println("Rok vydaní: " + f.getRokVydani());
-                    //System.out.println("Doporučený věk: " + f.getMinVek());
                     f.printAllStaff();
                     System.out.println("-----------------------------------------.");
                 }
