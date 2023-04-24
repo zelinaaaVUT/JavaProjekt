@@ -21,7 +21,7 @@ public class InsertQueries {
         SelectQueries check = new SelectQueries();
 
         if (nazev == null || reziser == null || rok_vydani == 0)
-            throw new NullPointerException("Name, reziser and rok vydaní must be set.");
+            throw new NullPointerException("Jméno, režisér a rok vydání musí být nastaveny.");
 
         Connection conn = DBConnection.getDbConnection();
 
@@ -37,7 +37,6 @@ public class InsertQueries {
                 prStmt.setInt(3, rok_vydani);
 
                 prStmt.executeUpdate();
-                System.out.println("Nový uživatel byl vložen do databáze!");
 
                 try (var autoID = prStmt.getGeneratedKeys()){
                     if (autoID.next()){
@@ -66,7 +65,7 @@ public class InsertQueries {
         SelectQueries check = new SelectQueries();
 
         if (nazev == null || reziser == null || rok_vydani == 0 || doporuceny_vek == 0)
-            throw new NullPointerException("Name, reziser, rok vydaní, doporuceny vek must be set.");
+            throw new NullPointerException("Jméno, režisér, rok vydaní a doporučený věk musí být nastaveny.");
 
         Connection conn = DBConnection.getDbConnection();
 
